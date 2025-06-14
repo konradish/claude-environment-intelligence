@@ -4,41 +4,44 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Architecture
 
-This is an **LLM Agent Prompt Pack** - a collection of production-tested prompts for autonomous AI agents. The project uses a layered architecture:
+This is a **Claude Code Command Pack** - a collection of production-tested slash commands for systematic workflows. The project has dual architecture:
 
 ```
-Environment → Tasks → Guides → Agent Execution
+Slash Commands (Primary) → Legacy Prompts (Reference)
 ```
 
-- **Environment prompts** (`prompts/env/`): Declare system capabilities, boundaries, and constraints
-- **Task prompts** (`prompts/tasks/`): Atomic, reusable operations for specific actions
-- **Guide prompts** (`prompts/guides/`): Multi-step workflows combining tasks with decision logic
+- **Slash commands** (`commands/`): Ready-to-use Claude Code commands with `$ARGUMENTS` support
+- **Legacy prompts** (`prompts/`): Original templates converted to commands, kept for reference
+- **Installation system** (`INSTALL.md`): Global deployment to `~/.claude/commands/`
 - **Examples** (`examples/`): Reference implementations and expected outputs
 
 ## Key Components
 
-### Environment Discovery
-- `prompts/env/env-probe.md` - Core system prompt for environment exploration
-- Guides agents through systematic discovery of OS, tools, mounts, and performance characteristics
-- Designed for WSL2/Linux environments with Windows mount considerations
+### Command System
+- `commands/env-probe.md` - Environment discovery and reporting
+- `commands/workflow-doc.md` - Tool workflow documentation with workspace isolation
+- `commands/search-code.md` - Code pattern analysis and categorization
+- All commands use `$ARGUMENTS` for parameter passing
 
-### Workflow Structure
-- **Task prompts**: Single-responsibility, parameterized, idempotent operations
-- **Guide prompts**: End-to-end workflows with quality gates and rollback procedures
-- **Composable design**: Tasks combine into workflows, workflows reference other workflows
+### Command Architecture
+- **Workspace isolation**: Commands create `workspace/` subdirectories for generated files
+- **Verified execution**: All commands must be tested, no placeholders allowed
+- **Dual cleanup**: Separate workspace cleanup from service/resource cleanup
+- **Composable design**: Commands can be combined for complex workflows
 
 ## Development Patterns
 
-### Prompt Design Principles
-1. **Declarative Configuration**: Prompts declare "what" not "how"
-2. **Layered Abstraction**: Environment → Tasks → Guides → Execution
-3. **Composability**: All prompts use shared vocabulary and can be combined
-4. **Observability**: Clear success/failure criteria and structured outputs
+### Command Design Principles
+1. **Direct Execution**: Commands execute immediately with `$ARGUMENTS`
+2. **Workspace Isolation**: All generated files go into dedicated workspace directories
+3. **Verified Steps**: No placeholders - all commands must be tested and verified
+4. **Dual Cleanup**: Separate workspace cleanup from service/resource cleanup
 
-### File Structure Conventions
-- All prompts are Markdown files with YAML parameter blocks
-- Each prompt includes: Objective, Prerequisites, Parameters, Output Format, Error Handling
-- Workflows specify Task Sequence, Decision Points, Quality Gates, Rollback Procedures
+### Command Structure Conventions
+- All commands are Markdown files in `commands/` directory
+- Each command includes: Objective, Execution steps, Output format, Error handling
+- Use `$ARGUMENTS` for parameter passing instead of YAML blocks
+- Workspace pattern: `workspace/{tool}-{workflow}-{timestamp}`
 
 ## Important Notes
 
@@ -46,9 +49,18 @@ Environment → Tasks → Guides → Agent Execution
 - Heavy I/O on `/mnt/c` is slower due to 9P protocol - prefer ext4 home directory for performance-critical operations
 - Git operations fail when working directory is a symlink to `/mnt/c` - use real paths
 
-### Agent Behavior
-- **Read-only by default** - never mutate files unless explicitly instructed
+### Command Pack Behavior
+- **Workspace isolation** - always create dedicated directories for generated files
+- **Verified execution** - test all commands, never use placeholders
+- **Clean working directory** - keep user's project directory uncluttered
 - **Rate limiting** - respect network limits and choose sane defaults
-- **Systematic exploration** - follow the 5-stage flow: OS/kernel → Mounts → Tools → Services → Performance
+- **Systematic exploration** - follow established patterns for discovery and documentation
 
-This repository contains no build scripts, package managers, or traditional development commands as it's a collection of prompt templates and documentation.
+## Usage as Command Pack
+
+This repository is designed to be installed as a Claude Code command pack:
+
+1. **Installation**: Copy `commands/*` to `~/.claude/commands/`  
+2. **Usage**: Available as `/command-name` in any Claude Code session
+3. **Benefits**: Global availability, workspace isolation, parameterized execution
+4. **No build system**: This is a collection of command templates, no compilation needed

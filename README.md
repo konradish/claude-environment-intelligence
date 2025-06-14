@@ -1,55 +1,86 @@
-# LLM Agent Prompt Pack
+# Claude Code Command Pack
 
-A curated set of production-tested prompts that tame LLM-based autonomous agents. Built for developers who need predictable, tool-aware AI systems.
+A curated set of production-tested slash commands for Claude Code that provide systematic workflows for environment discovery, tool validation, and code analysis.
 
-## Why agent systems?
+## ⚡ Slash Command Architecture
 
-• **Autonomy loop**: Agents perceive environment, plan actions, execute tools, and adapt based on results
-• **Tool orchestration**: Modern agents coordinate multiple APIs, CLIs, and services without human intervention  
-• **Reproducible reasoning**: Well-designed agents follow consistent decision patterns across similar tasks
-• **Predictable outcomes**: Environment prompts eliminate guesswork by declaring exact capabilities upfront
+This repository is designed as a **Claude Code Command Pack** - install once, use everywhere:
 
-Environment prompts make agents *predictable*.
+• **Global availability**: Commands work in any project directory
+• **Zero clutter**: No copying files or cluttering working directories  
+• **Parameterized**: Dynamic arguments via `$ARGUMENTS` keyword
+• **Isolated workspaces**: Generated files don't interfere with your project
+• **Composable**: Commands combine for complex workflows
 
-## What's an environment prompt?
-
-• **Declares system context**: Available mounts, paths, installed CLIs, and service endpoints
-• **Sets boundaries**: Rate limits, network access, and tool permissions to prevent runaway behavior
-• **Eliminates discovery**: Agents skip trial-and-error probing and jump straight to productive work
-
-This approach prevents agents from spending tokens on environment discovery and reduces unpredictable failures.
-
-## Quick start
+## 🚀 Quick Install
 
 ```bash
-git clone https://github.com/konradish/workflow-prompts.git
-cd workflow-prompts
-cp env-probe.md.example env-probe.md    # tweak paths & tokens
+# Create commands directory
+mkdir -p ~/.claude/commands
+
+# Copy commands (choose one method)
+cp commands/* ~/.claude/commands/
+
+# OR clone and link for easy updates
+git clone <this-repo> ~/.claude/prompt-packs/llm-env
+ln -s ~/.claude/prompt-packs/llm-env/commands/* ~/.claude/commands/
 ```
 
-## Available Prompts
+**Usage**: Start Claude Code anywhere, type `/` to see available commands.
 
-### Environment Prompts
-- **[Environment Probe](prompts/env/env-probe.md)** - Systematic environment discovery and capability assessment
+## 📋 Available Commands
 
-### Task Prompts
-- **[Codebase Search](prompts/tasks/codebase-search.md)** - Efficient code pattern and implementation discovery
-- **[Workflow Documentation](prompts/tasks/workflow-documentation.md)** - Document and validate specific tool workflows
+### Environment Discovery
+- **`/env-probe`** - Discover system capabilities and create detailed env_report.md
+  - Analyzes OS, mounts, tools, network, and performance
+  - Identifies WSL2/Linux specifics and limitations
 
-### Workflow Guides
-- **[Feature Development](prompts/guides/feature-development.md)** - End-to-end feature implementation workflow
-- **[Tool Exploration](prompts/guides/tool-exploration.md)** - Systematic tool/technology exploration and validation
+### Workflow Documentation
+- **`/workflow-doc <tool> <workflow>`** - Document and test tool workflows with verification
+  - Example: `/workflow-doc wrangler proxy-deploy`
+  - Creates isolated workspace, documents steps, provides cleanup
+  - Never uses placeholders - all commands are verified
 
-## Repo structure
+### Code Analysis  
+- **`/search-code <pattern>`** - Search and analyze code patterns across codebase
+  - Example: `/search-code getUserData` 
+  - Finds definitions, usages, tests with context
+  - Intelligent scope filtering and categorization
+
+## 🎯 Command Benefits
+
+- **Workspace Isolation**: All generated files go into `workspace/` subdirectories
+- **Clean Execution**: No file clutter in your working directory
+- **Verified Steps**: Commands are tested, not theoretical
+- **Comprehensive Cleanup**: Both workspace and service cleanup instructions
+- **Multi-experiment Friendly**: Run multiple workflows without interference
+
+## 📁 Repository Structure
 
 ```
-prompts/
-  env/       # environment probes & setup prompts
-  tasks/     # reusable action prompts (search, code-refactor, etc.)
-  guides/    # higher-level agent workflows
-examples/    # minimal JSON calls & expected outputs
-docs/        # deep dives, architecture diagrams
+commands/           # Claude Code slash commands (main interface)
+  env-probe.md     # Environment discovery command
+  workflow-doc.md  # Tool workflow documentation
+  search-code.md   # Code pattern analysis
+  
+prompts/            # Original prompt templates (reference)
+  env/             # Environment probes & setup prompts
+  tasks/           # Reusable action prompts  
+  guides/          # Higher-level agent workflows
+  
+examples/           # Reference implementations
+docs/              # Architecture documentation
+INSTALL.md         # Installation instructions
 ```
+
+## 🔄 Legacy Prompts
+
+The `prompts/` directory contains the original prompt templates that were converted to slash commands. These remain for:
+- **Reference**: Understanding the design principles
+- **Customization**: Creating your own command variations
+- **Documentation**: Explaining the layered architecture approach
+
+**Recommendation**: Use the `commands/` directory for day-to-day work.
 
 ## Contributing
 
