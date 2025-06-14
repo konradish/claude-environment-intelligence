@@ -1,41 +1,47 @@
-# Workflow Prompts
+# LLM Agent Prompt Pack
 
-A curated collection of specialized system prompts designed to streamline common development and operational workflows using Large Language Models (LLMs).
+A curated set of production-tested prompts that tame LLM-based autonomous agents. Built for developers who need predictable, tool-aware AI systems.
 
-## Purpose
+## Why agent systems?
 
-This repository provides production-ready, token-optimized prompt templates for automating routine tasks and complex workflows. Each prompt is designed for efficiency, reliability, and real-world applicability.
+• **Autonomy loop**: Agents perceive environment, plan actions, execute tools, and adapt based on results
+• **Tool orchestration**: Modern agents coordinate multiple APIs, CLIs, and services without human intervention  
+• **Reproducible reasoning**: Well-designed agents follow consistent decision patterns across similar tasks
+• **Predictable outcomes**: Environment prompts eliminate guesswork by declaring exact capabilities upfront
 
-## Prompt Collection
+Environment prompts make agents *predictable*.
 
-### Environment Profiling
-- **`env-probe.md`** - Comprehensive system environment exploration and documentation
-  - Automatically detects OS, tools, filesystem mounts, and performance characteristics
-  - Generates structured reports with actionable recommendations
-  - Optimized for WSL2/Linux environments with known caveat handling
+## What's an environment prompt?
 
-## Key Design Principles
+• **Declares system context**: Available mounts, paths, installed CLIs, and service endpoints
+• **Sets boundaries**: Rate limits, network access, and tool permissions to prevent runaway behavior
+• **Eliminates discovery**: Agents skip trial-and-error probing and jump straight to productive work
 
-- **Token efficiency** - Minimized prompt overhead for cost-effective operation
-- **Structured outputs** - Consistent, parseable results across different LLM providers
-- **Error resilience** - Graceful handling of missing tools or failed commands
-- **Documentation focus** - Self-documenting prompts with clear usage instructions
+This approach prevents agents from spending tokens on environment discovery and reduces unpredictable failures.
 
-## Planned Additions
+## Quick start
 
-Future prompts will cover:
-- Code review and quality assessment workflows
-- CI/CD pipeline generation and troubleshooting
-- Project setup and scaffolding automation
-- Security audit and compliance checking
-- Performance optimization and monitoring
+```bash
+git clone https://github.com/konradish/workflow-prompts.git
+cd workflow-prompts
+cp env-probe.md.example env-probe.md    # tweak paths & tokens
+```
 
-## Usage
+## Repo structure
 
-Each prompt template includes:
-1. **Configuration section** - Customize for your specific environment
-2. **Execution flow** - Step-by-step workflow definition
-3. **Output format** - Structured result specifications
-4. **Usage examples** - Real-world application scenarios
+```
+prompts/
+  env/       # environment probes & setup prompts
+  tasks/     # reusable action prompts (search, code-refactor, etc.)
+  guides/    # higher-level agent workflows
+examples/    # minimal JSON calls & expected outputs
+docs/        # deep dives, architecture diagrams
+```
 
-Simply copy the desired prompt template and adapt the configuration section to your needs.
+## Contributing
+
+PRs welcome, follow Conventional Commits.
+
+## License
+
+[MIT](LICENSE)
