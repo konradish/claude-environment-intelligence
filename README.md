@@ -1,38 +1,41 @@
-# LLM Environment Exploration
+# Workflow Prompts
 
-This repository contains a system prompt template designed for efficiently exploring and documenting development environments using Large Language Models (LLMs).
+A curated collection of specialized system prompts designed to streamline common development and operational workflows using Large Language Models (LLMs).
 
 ## Purpose
 
-The main goal is to provide a token-efficient, structured approach for LLM agents to:
+This repository provides production-ready, token-optimized prompt templates for automating routine tasks and complex workflows. Each prompt is designed for efficiency, reliability, and real-world applicability.
 
-1. **Profile system environments** - Automatically detect OS, distributions, mounted filesystems, and available tools
-2. **Generate comprehensive reports** - Create standardized documentation of system capabilities and limitations
-3. **Handle common WSL2/Linux caveats** - Address performance issues with Windows mounts and Git symlink problems
-4. **Provide actionable recommendations** - Help developers optimize their development setup
+## Prompt Collection
 
-## Key Features
+### Environment Profiling
+- **`env-probe.md`** - Comprehensive system environment exploration and documentation
+  - Automatically detects OS, tools, filesystem mounts, and performance characteristics
+  - Generates structured reports with actionable recommendations
+  - Optimized for WSL2/Linux environments with known caveat handling
 
-- **Token-optimized prompt design** - Uses markdown headers instead of heavy fence syntax (~15% fewer tokens)
-- **YAML-based configuration** - Centralized, easily editable system profile
-- **Comprehensive tool inventory** - Checks for modern development tools (uv, uvx, gh, docker, etc.)
-- **Performance benchmarking** - Tests I/O performance across different mount points
-- **Network connectivity testing** - Verifies access to essential development services
+## Key Design Principles
 
-## Use Case
+- **Token efficiency** - Minimized prompt overhead for cost-effective operation
+- **Structured outputs** - Consistent, parseable results across different LLM providers
+- **Error resilience** - Graceful handling of missing tools or failed commands
+- **Documentation focus** - Self-documenting prompts with clear usage instructions
 
-This template is particularly useful for:
+## Planned Additions
 
-- **Development environment setup** - Quickly assess what's available on a new system
-- **CI/CD environment profiling** - Document build environment capabilities
-- **Cross-platform development** - Understand differences between WSL2, native Linux, and other environments
-- **Performance troubleshooting** - Identify filesystem and network bottlenecks
-
-## Files
-
-- `env-probe.md` - The main system prompt template for LLM agents
-- Generated: `env_report.md` - The output report (created when the prompt is executed)
+Future prompts will cover:
+- Code review and quality assessment workflows
+- CI/CD pipeline generation and troubleshooting
+- Project setup and scaffolding automation
+- Security audit and compliance checking
+- Performance optimization and monitoring
 
 ## Usage
 
-Drop the `env-probe.md` file into your LLM prompt and let the agent explore your environment systematically. The agent will generate a comprehensive report covering system facts, tool availability, performance metrics, and optimization recommendations.
+Each prompt template includes:
+1. **Configuration section** - Customize for your specific environment
+2. **Execution flow** - Step-by-step workflow definition
+3. **Output format** - Structured result specifications
+4. **Usage examples** - Real-world application scenarios
+
+Simply copy the desired prompt template and adapt the configuration section to your needs.
