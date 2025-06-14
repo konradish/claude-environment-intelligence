@@ -39,7 +39,7 @@ network_limits: auto   # agent picks safe defaults; override if needed
 | B     | Mount map            | `mount | grep '^/dev'`; verify symlink                                           |
 | C     | Tool inventory       | `which <tool> && <tool> --version`; run auth checks for `gh`, `wrangler`         |
 | D     | Service reachability | `ssh -T git@github.com`; `curl --head https://api.cloudflare.com`                |
-| E     | Perf probe           | `dd if=/dev/zero of=/tmp/bench bs=1M count=256 oflag=direct`; repeat on `/mnt/c` |
+| E     | Perf probe           | `dd if=/dev/zero of=/tmp/bench bs=1M count=256 oflag=direct`; repeat on `/mnt/c/temp/bench` |
 
 Retry each stage up to 2×; skip gracefully if a command is missing.
 
