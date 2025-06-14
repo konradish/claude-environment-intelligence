@@ -27,6 +27,19 @@ cd workflow-prompts
 cp env-probe.md.example env-probe.md    # tweak paths & tokens
 ```
 
+## Available Prompts
+
+### Environment Prompts
+- **[Environment Probe](prompts/env/env-probe.md)** - Systematic environment discovery and capability assessment
+
+### Task Prompts
+- **[Codebase Search](prompts/tasks/codebase-search.md)** - Efficient code pattern and implementation discovery
+- **[Workflow Documentation](prompts/tasks/workflow-documentation.md)** - Document and validate specific tool workflows
+
+### Workflow Guides
+- **[Feature Development](prompts/guides/feature-development.md)** - End-to-end feature implementation workflow
+- **[Tool Exploration](prompts/guides/tool-exploration.md)** - Systematic tool/technology exploration and validation
+
 ## Repo structure
 
 ```

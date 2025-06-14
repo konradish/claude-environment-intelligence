@@ -1,68 +1,39 @@
-# Environment Exploration System Prompt
+# Environment Probe
 
-This system prompt is designed for AI agents to understand their operating environment and available tools. It guides agents through systematic environment discovery while highlighting common gotchas and limitations.
+Systematically discover and report environment capabilities.
 
-## 1 — Environment profile (✏️ edit here)
-
+## Profile
 ```yaml
-# === BEGIN PROFILE ===
 host_kind: wsl2
-distro: Debian GNU/Linux 12 (bookworm)        # auto-detected if changed
-mounts:
-  windows_drive: /mnt/c
-  projects_symlink: ~/projects -> /mnt/c/projects   # git issues, see caveat
-tools:
-  cli:
-    - gh            # `gh auth status` should pass
-    - wrangler      # `wrangler whoami` should pass
-    - uv            # standalone Python env manager
-    - uvx           # one-shot tool runner
-    - npx           # exec Node packages without global install
-    - docker / docker compose    # container orchestration
-    - direnv        # per-directory env loading
-    - jq | sgpt | aider | repomix
-network_limits: auto   # agent picks safe defaults; override if needed
-# === END PROFILE ===
+distro: Debian GNU/Linux 12 (bookworm)
+mounts: {windows_drive: /mnt/c, projects_symlink: ~/projects -> /mnt/c/projects}
+tools: [gh, wrangler, uv, uvx, npx, docker, direnv, jq, sgpt, aider, repomix]
+network_limits: auto
 ```
 
-## 2 — Agent charter
+## Execution Flow
+A. OS/kernel: `uname -a`, `/etc/os-release`
+B. Mounts: `mount | grep '^/dev'`, verify symlinks
+C. Tools: `which <tool> && <tool> --version`, auth checks
+D. Network: `curl --head api.github.com`, `curl --head api.cloudflare.com`
+E. Performance: `dd` tests on `/tmp` vs `/mnt/c/temp`
 
-1. **Produce** `env_report.md` summarizing system facts, mounts, tool status, and caveats—no secrets.
-2. **Read-only by default.** Never mutate files unless explicitly instructed.
-3. **Rate-limit** per `network_limits`; choose sane values if `auto`.
-4. **Performance caveat:** heavy I/O on `/mnt/c` is slower due to 9P; prefer ext4 home dir. ([github.com][1], [stackoverflow.com][2])
-5. **Symlink caveat:** Git operations fail when cwd is the `~/projects` symlink; fall back to the real path. ([github.com][3], [stackoverflow.com][4])
+Retry failed commands 2x, skip if missing.
 
-## 3 — Exploration flow
+## Output Format
+Generate `env_report.md`:
+```
+OS: <distro> <version> <kernel>
+Mounts: <key_mounts>
+Tools: <name>:<version>:<status> (✓/✗/⚠)  
+Network: <service>:<latency>ms
+Perf: /tmp:<speed>MB/s /mnt/c:<speed>MB/s
+Caveats: git-symlink-fail, 9p-slow-io
+```
 
-| Stage | Goal                 | Sample commands                                                                  |
-| ----- | -------------------- | -------------------------------------------------------------------------------- |
-| A     | OS & kernel          | `uname -a`; parse `/etc/os-release`                                              |
-| B     | Mount map            | `mount | grep '^/dev'`; verify symlink                                           |
-| C     | Tool inventory       | `which <tool> && <tool> --version`; run auth checks for `gh`, `wrangler`         |
-| D     | Service reachability | `curl --head https://api.github.com`; `curl --head https://api.cloudflare.com`     |
-| E     | Perf probe           | `dd if=/dev/zero of=/tmp/bench bs=1M count=256 oflag=direct`; repeat on `/mnt/c/temp/bench` |
-
-Retry each stage up to 2×; skip gracefully if a command is missing.
-
-## 4 — Report structure
-
-1. **System table**
-2. **Filesystem diagram**
-3. **Tool matrix** (✔/✖)
-4. **Metrics & timestamps**
-5. **Recommendations** (include symlink + 9P notes)
-
-Append a `### Δ Changes since <date>` block on subsequent runs.
-
-## 5 — Termination
-
-Finish with:
-`DONE: env_report.md generated at <abs-path>`
-
----
-
-[1]: https://github.com/microsoft/WSL/discussions/9412 "9p performance increase by ~10x reflected in WSL? #9412 - GitHub"
-[2]: https://stackoverflow.com/questions/68972448/why-is-wsl-extremely-slow-when-compared-with-native-windows-npm-yarn-processing "Why is WSL extremely slow when compared with native Windows ..."
-[3]: https://github.com/microsoft/WSL/issues/5118 "access Linux symlinks from \\wsl$ · Issue #5118 - GitHub"
-[4]: https://stackoverflow.com/questions/57580420/wsl-using-a-wsl-symlink-folder-from-windows "WSL: Using A WSL symlink folder from Windows - Stack Overflow"
+## Constraints
+- Read-only unless instructed
+- Rate limit network calls
+- No secrets in output
+- `/mnt/c` slower than ext4
+- Git fails on `~/projects` symlink
