@@ -2,6 +2,8 @@
 
 Install the LLM Agent Command Pack to use as global Claude Code slash commands.
 
+**New to Claude Code?** See the [official documentation](https://docs.anthropic.com/en/docs/claude-code) for setup and usage basics.
+
 ## Quick Install
 
 ```bash
@@ -9,11 +11,11 @@ Install the LLM Agent Command Pack to use as global Claude Code slash commands.
 mkdir -p ~/.claude/commands
 
 # Copy all commands from this repo
-cp /path/to/llm_environment_exploration/commands/* ~/.claude/commands/
+cp /path/to/llm_environment_exploration/src/commands/* ~/.claude/commands/
 
 # Or clone and link (for easy updates)
 git clone https://github.com/your-repo/llm_environment_exploration.git ~/.claude/prompt-packs/llm-env
-ln -s ~/.claude/prompt-packs/llm-env/commands/* ~/.claude/commands/
+ln -s ~/.claude/prompt-packs/llm-env/src/commands/* ~/.claude/commands/
 ```
 
 ## Available Commands
@@ -21,11 +23,11 @@ ln -s ~/.claude/prompt-packs/llm-env/commands/* ~/.claude/commands/
 Once installed, these commands are available in any Claude Code session:
 
 ### Environment Discovery
-- `/env-probe` - Discover system capabilities and create env_report.md
+- `/scan-env` - Discover system capabilities and create env_report.md
 
 ### Workflow Documentation  
-- `/workflow-doc <tool> <workflow>` - Document and test tool workflows
-  - Example: `/workflow-doc wrangler proxy-deploy`
+- `/doc-workflow <tool> <workflow>` - Document and test tool workflows
+  - Example: `/doc-workflow wrangler proxy-deploy`
   - Creates isolated workspace, documents steps, provides cleanup
 
 ### Code Analysis

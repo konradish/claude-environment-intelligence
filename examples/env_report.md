@@ -2,6 +2,15 @@
 
 Generated: 2025-06-14 20:29 UTC
 
+## 🔍 Key Findings (Debian bookworm on WSL2)
+
+- **Storage Performance**: ext4 writes: 5.5 GB/s ⟂ 9P writes: 77 MB/s → ❗ **71× slowdown on /mnt/c**
+- **Missing Tools**: direnv, yt-dlp → consider installing for workflow optimization  
+- **SSH Issues**: Host-key check failing → set up ssh-askpass for proper Git workflows
+- **Optimal Strategy**: Use `~/` (ext4) for I/O-heavy operations, avoid `/mnt/c` for performance-critical tasks
+
+---
+
 ## System Table
 
 | Property | Value |

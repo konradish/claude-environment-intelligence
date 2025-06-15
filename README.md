@@ -1,6 +1,8 @@
 # Claude Code Command Pack
 
-A curated set of production-tested slash commands for Claude Code that provide systematic workflows for environment discovery, tool validation, and code analysis.
+**What it solves:** Eliminates the tedious cycle of discovering system capabilities, validating tool workflows, and searching codebases by providing battle-tested slash commands that work consistently across environments.
+
+**Why it matters:** Instead of copy-pasting prompts or reinventing discovery scripts, you get verified workflows that follow [Claude Code Best Practices](https://docs.anthropic.com/en/docs/claude-code) and integrate seamlessly with your development process.
 
 ## ⚡ Slash Command Architecture
 
@@ -31,13 +33,13 @@ ln -s ~/.claude/prompt-packs/llm-env/commands/* ~/.claude/commands/
 ## 📋 Available Commands
 
 ### Environment Discovery
-- **`/env-probe`** - Discover system capabilities and create detailed env_report.md
+- **`/scan-env`** - Discover system capabilities and create detailed env_report.md
   - Analyzes OS, mounts, tools, network, and performance
   - Identifies WSL2/Linux specifics and limitations
 
 ### Workflow Documentation
-- **`/workflow-doc <tool> <workflow>`** - Document and test tool workflows with verification
-  - Example: `/workflow-doc wrangler proxy-deploy`
+- **`/doc-workflow <tool> <workflow>`** - Document and test tool workflows with verification
+  - Example: `/doc-workflow wrangler proxy-deploy`
   - Creates isolated workspace, documents steps, provides cleanup
   - Never uses placeholders - all commands are verified
 
@@ -58,29 +60,22 @@ ln -s ~/.claude/prompt-packs/llm-env/commands/* ~/.claude/commands/
 ## 📁 Repository Structure
 
 ```
-commands/           # Claude Code slash commands (main interface)
-  env-probe.md     # Environment discovery command
-  workflow-doc.md  # Tool workflow documentation
-  search-code.md   # Code pattern analysis
-  
-prompts/            # Original prompt templates (reference)
-  env/             # Environment probes & setup prompts
-  tasks/           # Reusable action prompts  
-  guides/          # Higher-level agent workflows
-  
-examples/           # Reference implementations
-docs/              # Architecture documentation
+src/commands/       # Claude Code slash commands (main interface)
+examples/           # Reference implementations and expected outputs
+docs/               # Architecture deep dives and design principles
 INSTALL.md         # Installation instructions
 ```
 
+**→ See [Architecture Documentation](docs/README.md) for detailed design principles and patterns.**
+
 ## 🔄 Legacy Prompts
 
-The `prompts/` directory contains the original prompt templates that were converted to slash commands. These remain for:
-- **Reference**: Understanding the design principles
-- **Customization**: Creating your own command variations
-- **Documentation**: Explaining the layered architecture approach
+The original prompt templates were converted to slash commands and are preserved in git history. For reference or customization:
+- **Git history**: `git log --follow src/commands/` to see evolution
+- **Design principles**: See [Architecture Documentation](docs/README.md)
+- **Customization**: Fork and modify commands in `src/commands/`
 
-**Recommendation**: Use the `commands/` directory for day-to-day work.
+**Recommendation**: Use the `src/commands/` directory for day-to-day work.
 
 ## Contributing
 

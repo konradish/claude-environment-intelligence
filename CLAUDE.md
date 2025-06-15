@@ -2,6 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+For comprehensive Claude Code documentation, see:
+- **[Claude Code Overview](https://docs.anthropic.com/en/docs/claude-code/overview)** - Core concepts and capabilities
+- **[CLI Usage Guide](https://docs.anthropic.com/en/docs/claude-code/cli-usage)** - Commands, flags, and slash commands
+- **[Security Model](https://docs.anthropic.com/en/docs/claude-code/security)** - Permissions and tool safety
+
 ## Project Architecture
 
 This is a **Claude Code Command Pack** - a collection of production-tested slash commands for systematic workflows. The project has dual architecture:
@@ -10,17 +15,17 @@ This is a **Claude Code Command Pack** - a collection of production-tested slash
 Slash Commands (Primary) → Legacy Prompts (Reference)
 ```
 
-- **Slash commands** (`commands/`): Ready-to-use Claude Code commands with `$ARGUMENTS` support
-- **Legacy prompts** (`prompts/`): Original templates converted to commands, kept for reference
+- **Slash commands** (`src/commands/`): Ready-to-use Claude Code commands with `$ARGUMENTS` support
+- **Legacy prompts**: Original templates converted to commands, preserved in git history
 - **Installation system** (`INSTALL.md`): Global deployment to `~/.claude/commands/`
 - **Examples** (`examples/`): Reference implementations and expected outputs
 
 ## Key Components
 
 ### Command System
-- `commands/env-probe.md` - Environment discovery and reporting
-- `commands/workflow-doc.md` - Tool workflow documentation with workspace isolation
-- `commands/search-code.md` - Code pattern analysis and categorization
+- `src/commands/scan-env.md` - Environment discovery and reporting
+- `src/commands/doc-workflow.md` - Tool workflow documentation with workspace isolation
+- `src/commands/search-code.md` - Code pattern analysis and categorization
 - All commands use `$ARGUMENTS` for parameter passing
 
 ### Command Architecture
@@ -38,7 +43,7 @@ Slash Commands (Primary) → Legacy Prompts (Reference)
 4. **Dual Cleanup**: Separate workspace cleanup from service/resource cleanup
 
 ### Command Structure Conventions
-- All commands are Markdown files in `commands/` directory
+- All commands are Markdown files in `src/commands/` directory
 - Each command includes: Objective, Execution steps, Output format, Error handling
 - Use `$ARGUMENTS` for parameter passing instead of YAML blocks
 - Workspace pattern: `workspace/{tool}-{workflow}-{timestamp}`
@@ -60,7 +65,7 @@ Slash Commands (Primary) → Legacy Prompts (Reference)
 
 This repository is designed to be installed as a Claude Code command pack:
 
-1. **Installation**: Copy `commands/*` to `~/.claude/commands/`  
+1. **Installation**: Copy `src/commands/*` to `~/.claude/commands/`  
 2. **Usage**: Available as `/command-name` in any Claude Code session
 3. **Benefits**: Global availability, workspace isolation, parameterized execution
 4. **No build system**: This is a collection of command templates, no compilation needed
