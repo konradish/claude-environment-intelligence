@@ -23,7 +23,7 @@ CEI transforms the tedious process of environment discovery into systematic inte
 - **Interactive Documentation**: Real-time workflow capture with error handling
 - **Integration Testing**: Cross-tool compatibility and version conflict detection
 - **Template Generation**: Environment-specific workflow templates
-- **Memory Persistence**: CLAUDE.md profile generation for consistent behavior
+- **Memory Integration**: Seamless integration with Claude Code's global CLAUDE.md for persistent environment awareness
 
 ### 🛠 Tool Evaluation
 - **Comprehensive Assessment**: Security, performance, integration analysis
@@ -48,20 +48,31 @@ ln -s ~/.claude/cei/src/commands/* ~/.claude/commands/
 
 ### Basic Usage
 ```bash
-# Discover your environment
+# 1. Discover your environment
 /scan-env
 
-# Comprehensive analysis
+# 2. Integrate findings with Claude Code's memory system
+# Claude Code will help you merge scan results into ~/.claude/CLAUDE.md
+# for persistent environment awareness across all sessions
+```
+
+### Complete Intelligence Workflow
+```bash
+# Step 1: Initial discovery
+/scan-env
+
+# Step 2: Deep analysis (optional)
 /scan-env-deep
 
-# Troubleshoot issues
+# Step 3: Integration with global CLAUDE.md
+# Use Claude Code to help integrate findings:
+# 1. Review generated reports in workspace/
+# 2. Ask Claude to merge relevant findings into ~/.claude/CLAUDE.md  
+# 3. Test Claude's improved environment awareness
+
+# Additional commands
 /env-troubleshoot "git operations fail in WSL2"
-
-# Evaluate specific tools
 /evaluate-tool docker
-
-# Create environment memory profile
-/create-memory-profile
 ```
 
 ## 📋 Command Reference
@@ -102,8 +113,44 @@ workspace/
 - **Parallel Execution**: Leverage Claude 4's multi-tool capabilities for speed
 - **Structured Output**: XML-tagged responses for reliable parsing
 - **Extended Thinking**: Deep analysis before action for better results
-- **Memory Integration**: Persistent profiles via CLAUDE.md for consistency
+- **Memory Integration**: Seamless integration with Claude Code's global ~/.claude/CLAUDE.md
 - **Verified Execution**: All commands tested, no placeholders
+- **Human-AI Collaboration**: Claude Code assists with integrating scan findings into memory system
+
+## 🧠 Memory Integration Workflow
+
+CEI's key innovation is seamless integration with Claude Code's memory system:
+
+### 1. Discovery Phase
+```bash
+# Run environment scan
+/scan-env
+# Results saved to workspace/scan-env-{timestamp}/
+```
+
+### 2. Integration Phase
+```bash
+# Ask Claude Code to help integrate findings
+# Example conversation:
+# "Please review the scan results in workspace/ and help me integrate 
+#  the key environment details into my ~/.claude/CLAUDE.md file"
+```
+
+### 3. Verification Phase
+```bash
+# Test Claude's improved environment awareness
+# Start a new Claude Code session and verify it knows about:
+# - Your WSL2 setup and limitations
+# - Available tools and versions  
+# - Performance characteristics
+# - Security constraints
+```
+
+### Benefits of Memory Integration
+- **Persistent Awareness**: Claude remembers your environment across all sessions
+- **Reduced Repetition**: No need to re-explain environment details
+- **Smarter Suggestions**: Context-aware recommendations based on your setup
+- **Team Consistency**: Shared memory profiles ensure consistent behavior
 
 ## 📊 Output Formats
 
@@ -118,8 +165,12 @@ CEI supports multiple output formats for different use cases:
 
 ### Development Team Onboarding
 ```bash
+# Generate team environment profile
 /scan-env --format=memory > team-environment-profile.md
-/create-memory-profile > CLAUDE.md
+
+# Integrate with personal Claude Code memory
+# Ask Claude Code to help merge findings into ~/.claude/CLAUDE.md
+# ensuring consistent environment awareness for all team members
 ```
 
 ### CI/CD Environment Validation
