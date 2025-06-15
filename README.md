@@ -1,86 +1,194 @@
-# Claude Code Command Pack
+# Claude Environment Intelligence (CEI)
 
-**What it solves:** Eliminates the tedious cycle of discovering system capabilities, validating tool workflows, and searching codebases by providing battle-tested slash commands that work consistently across environments.
+**Intelligent development environment discovery and analysis for Claude Code**
 
-**Why it matters:** Instead of copy-pasting prompts or reinventing discovery scripts, you get verified workflows that follow [Claude Code Best Practices](https://docs.anthropic.com/en/docs/claude-code) and integrate seamlessly with your development process.
+CEI transforms the tedious process of environment discovery into systematic intelligence gathering. Instead of manually checking system capabilities, tool versions, and integration points, CEI provides production-tested slash commands that analyze, document, and optimize your development environment.
 
-## ⚡ Slash Command Architecture
+## 🎯 What CEI Solves
 
-This repository is designed as a **Claude Code Command Pack** - install once, use everywhere:
+- **Environment Blind Spots**: Automatically discover hidden limitations (WSL2 quirks, permission issues, tool conflicts)
+- **Setup Inconsistencies**: Generate environment profiles that work consistently across team members
+- **Tool Integration Failures**: Verify tool workflows before they break your development flow
+- **Documentation Drift**: Keep environment documentation synchronized with actual system state
 
-• **Global availability**: Commands work in any project directory
-• **Zero clutter**: No copying files or cluttering working directories  
-• **Parameterized**: Dynamic arguments via `$ARGUMENTS` keyword
-• **Isolated workspaces**: Generated files don't interfere with your project
-• **Composable**: Commands combine for complex workflows
+## ⚡ Core Intelligence Capabilities
 
-## 🚀 Quick Install
+### 🔍 Environment Discovery
+- **System Analysis**: OS, architecture, performance baselines, security posture
+- **Tool Detection**: Version analysis, compatibility checking, integration testing
+- **Limitation Mapping**: WSL2 specifics, permission boundaries, network constraints
+- **Performance Profiling**: I/O benchmarks, network latency, compute capabilities
 
+### 📊 Workflow Intelligence
+- **Interactive Documentation**: Real-time workflow capture with error handling
+- **Integration Testing**: Cross-tool compatibility and version conflict detection
+- **Template Generation**: Environment-specific workflow templates
+- **Memory Persistence**: CLAUDE.md profile generation for consistent behavior
+
+### 🛠 Tool Evaluation
+- **Comprehensive Assessment**: Security, performance, integration analysis
+- **Benchmarking**: Performance baselines and optimization recommendations
+- **Compatibility Matrix**: Multi-tool integration analysis
+- **Troubleshooting**: Systematic debugging with resolution guidance
+
+## 🚀 Quick Start
+
+### Installation
 ```bash
 # Create commands directory
 mkdir -p ~/.claude/commands
 
-# Copy commands (choose one method)
+# Install CEI commands
 cp src/commands/* ~/.claude/commands/
 
-# OR clone and link for easy updates
-git clone https://github.com/konradish/workflow-prompts ~/.claude/prompt-packs/workflow-prompts
-ln -s ~/.claude/prompt-packs/workflow-prompts/src/commands/* ~/.claude/commands/
+# OR clone for easy updates
+git clone https://github.com/username/claude-environment-intelligence ~/.claude/cei
+ln -s ~/.claude/cei/src/commands/* ~/.claude/commands/
 ```
 
-**Usage**: Start Claude Code anywhere, type `/` to see available commands.
+### Basic Usage
+```bash
+# Discover your environment
+/scan-env
 
-## 📋 Available Commands
+# Comprehensive analysis
+/scan-env-deep
 
-### Environment Discovery
-- **`/scan-env`** - Discover system capabilities and create detailed env_report.md
-  - Analyzes OS, mounts, tools, network, and performance
-  - Identifies WSL2/Linux specifics and limitations
+# Troubleshoot issues
+/env-troubleshoot "git operations fail in WSL2"
 
-### Workflow Documentation
-- **`/doc-workflow <tool> <workflow>`** - Document and test tool workflows with verification
-  - Example: `/doc-workflow wrangler proxy-deploy`
-  - Creates isolated workspace, documents steps, provides cleanup
-  - Never uses placeholders - all commands are verified
+# Evaluate specific tools
+/evaluate-tool docker
 
-### Code Analysis  
-- **`/search-code <pattern>`** - Search and analyze code patterns across codebase
-  - Example: `/search-code getUserData` 
-  - Finds definitions, usages, tests with context
-  - Intelligent scope filtering and categorization
+# Create environment memory profile
+/create-memory-profile
+```
 
-## 🎯 Command Benefits
+## 📋 Command Reference
 
-- **Workspace Isolation**: All generated files go into `workspace/` subdirectories
-- **Clean Execution**: No file clutter in your working directory
-- **Verified Steps**: Commands are tested, not theoretical
-- **Comprehensive Cleanup**: Both workspace and service cleanup instructions
-- **Multi-experiment Friendly**: Run multiple workflows without interference
+### Core Discovery Commands
+- **`/scan-env`** - Systematic environment discovery with structured output
+- **`/scan-env-deep`** - Comprehensive analysis including security and performance
+- **`/env-troubleshoot <issue>`** - Guided troubleshooting for common problems
+- **`/env-compare <profile1> <profile2>`** - Environment comparison and migration planning
+
+### Tool Intelligence Commands  
+- **`/evaluate-tool <tool>`** - Complete tool assessment with benchmarks
+- **`/benchmark-tool <tool> <workload>`** - Performance analysis and optimization
+- **`/tool-compatibility <tool1> <tool2>`** - Cross-tool integration analysis
+
+### Workflow Documentation Commands
+- **`/doc-workflow-interactive <tool>`** - Real-time workflow capture
+- **`/workflow-template <category>`** - Generate workflow templates
+- **`/create-memory-profile`** - Generate CLAUDE.md environment profiles
+
+### Advanced Analysis Commands
+- **`/search-code-advanced <pattern>`** - Enhanced code pattern analysis
+- **`/pattern-analysis <codebase>`** - Architectural pattern detection
+
+## 🏗 Architecture
+
+CEI follows a **workspace isolation** pattern that keeps your project directory clean while providing comprehensive analysis:
+
+```
+workspace/
+├── scan-env-2024-01-15/          # Environment discovery results
+├── tool-evaluation-2024-01-15/   # Tool analysis reports  
+├── workflow-docs-2024-01-15/     # Generated documentation
+└── memory-profiles-2024-01-15/   # CLAUDE.md profiles
+```
+
+### Key Design Principles
+- **Parallel Execution**: Leverage Claude 4's multi-tool capabilities for speed
+- **Structured Output**: XML-tagged responses for reliable parsing
+- **Extended Thinking**: Deep analysis before action for better results
+- **Memory Integration**: Persistent profiles via CLAUDE.md for consistency
+- **Verified Execution**: All commands tested, no placeholders
+
+## 📊 Output Formats
+
+CEI supports multiple output formats for different use cases:
+
+- **`--format=markdown`** - Human-readable documentation
+- **`--format=json`** - Machine-parseable structured data  
+- **`--format=memory`** - CLAUDE.md compatible profiles
+- **`--format=checklist`** - Actionable task lists
+
+## 🎯 Use Cases
+
+### Development Team Onboarding
+```bash
+/scan-env --format=memory > team-environment-profile.md
+/create-memory-profile > CLAUDE.md
+```
+
+### CI/CD Environment Validation
+```bash
+/scan-env-deep --format=json > ci-environment-report.json
+/evaluate-tool docker --format=checklist > docker-validation.md
+```
+
+### Tool Migration Planning
+```bash
+/env-compare current-env.json target-env.json
+/tool-compatibility webpack vite
+```
+
+### Performance Optimization
+```bash
+/benchmark-tool node build-process
+/scan-env-deep --focus=performance
+```
 
 ## 📁 Repository Structure
 
 ```
-src/commands/       # Claude Code slash commands (main interface)
-examples/           # Reference implementations and expected outputs
-docs/               # Architecture deep dives and design principles
-INSTALL.md         # Installation instructions
+claude-environment-intelligence/
+├── src/
+│   ├── commands/
+│   │   ├── core/                    # Essential discovery commands
+│   │   ├── evaluation/              # Tool evaluation commands
+│   │   ├── documentation/           # Workflow documentation
+│   │   └── analysis/                # Advanced analysis
+│   ├── templates/                   # CLAUDE.md and profile templates
+│   └── schemas/                     # JSON schemas for outputs
+├── examples/                        # Sample outputs and use cases
+├── docs/                           # Architecture and best practices
+└── tests/                          # Command validation tests
 ```
 
-**→ See [Architecture Documentation](docs/README.md) for detailed design principles and patterns.**
+## 🤝 Contributing
 
-## 🔄 Legacy Prompts
+CEI follows the [Claude Code Command Pack](https://docs.anthropic.com/en/docs/claude-code) architecture:
 
-The original prompt templates were converted to slash commands and are preserved in git history. For reference or customization:
-- **Git history**: `git log --follow src/commands/` to see evolution
-- **Design principles**: See [Architecture Documentation](docs/README.md)
-- **Customization**: Fork and modify commands in `src/commands/`
+1. **Fork & Clone**: Standard GitHub workflow
+2. **Command Development**: Add new commands to `src/commands/`
+3. **Testing**: All commands must be verified in target environments
+4. **Documentation**: Include examples and expected outputs
+5. **Submit PR**: Follow conventional commits
 
-**Recommendation**: Use the `src/commands/` directory for day-to-day work.
+### Command Development Guidelines
+- Use XML tags for structured output
+- Implement parallel execution where possible
+- Include comprehensive error handling
+- Generate workspace-isolated outputs
+- Provide multiple output formats
 
-## Contributing
+## 📈 Roadmap
 
-PRs welcome, follow Conventional Commits.
+- **v1.0**: Core discovery and tool evaluation commands
+- **v1.1**: Advanced analysis and comparison features
+- **v1.2**: Interactive documentation and template generation
+- **v1.3**: Performance optimization and security analysis
+- **v2.0**: AI-powered environment optimization recommendations
 
-## License
+## 📄 License
 
-[MIT](LICENSE)
+MIT License - see [LICENSE](LICENSE) for details.
+
+## 🔗 Links
+
+- **[Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)**
+- **[Best Practices Guide](docs/best-practices.md)**
+- **[Command Reference](docs/command-reference.md)**
+- **[Troubleshooting Guide](docs/troubleshooting.md)**
