@@ -1,6 +1,6 @@
 # Installation Guide
 
-Install the LLM Agent Command Pack to use as global Claude Code slash commands.
+Install the Claude Environment Intelligence Command Pack to use as global Claude Code slash commands.
 
 **New to Claude Code?** See the [official documentation](https://docs.anthropic.com/en/docs/claude-code) for setup and usage basics.
 
@@ -11,11 +11,11 @@ Install the LLM Agent Command Pack to use as global Claude Code slash commands.
 mkdir -p ~/.claude/commands
 
 # Copy all commands from this repo
-cp /path/to/llm_environment_exploration/src/commands/* ~/.claude/commands/
+cp /path/to/claude-environment-intelligence/src/commands/* ~/.claude/commands/
 
 # Or clone and link (for easy updates)
-git clone https://github.com/your-repo/llm_environment_exploration.git ~/.claude/prompt-packs/llm-env
-ln -s ~/.claude/prompt-packs/llm-env/src/commands/* ~/.claude/commands/
+git clone https://github.com/konradish/claude-environment-intelligence.git ~/.claude/prompt-packs/cei
+ln -s ~/.claude/prompt-packs/cei/src/commands/* ~/.claude/commands/
 ```
 
 ## Available Commands
@@ -54,7 +54,7 @@ Once installed, these commands are available in any Claude Code session:
 
 To update commands:
 ```bash
-cd ~/.claude/prompt-packs/llm-env
+cd ~/.claude/prompt-packs/cei
 git pull
 # Commands are automatically updated via symlinks
 ```
