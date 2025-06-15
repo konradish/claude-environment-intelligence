@@ -21,11 +21,11 @@ This repository is designed as a **Claude Code Command Pack** - install once, us
 mkdir -p ~/.claude/commands
 
 # Copy commands (choose one method)
-cp commands/* ~/.claude/commands/
+cp src/commands/* ~/.claude/commands/
 
 # OR clone and link for easy updates
-git clone <this-repo> ~/.claude/prompt-packs/llm-env
-ln -s ~/.claude/prompt-packs/llm-env/commands/* ~/.claude/commands/
+git clone https://github.com/konradish/workflow-prompts ~/.claude/prompt-packs/workflow-prompts
+ln -s ~/.claude/prompt-packs/workflow-prompts/src/commands/* ~/.claude/commands/
 ```
 
 **Usage**: Start Claude Code anywhere, type `/` to see available commands.
